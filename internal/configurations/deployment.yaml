@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: json-storage-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: json-storage-service
+  template:
+    metadata:
+      labels:
+        app: json-storage-service
+    spec:
+      containers:
+      - name: json-storage-service
+        image: json-storage-service:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
